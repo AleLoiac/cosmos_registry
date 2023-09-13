@@ -103,5 +103,7 @@ func (k Keeper) Export(ctx context.Context) error {
 	}
 
 	k.Balances.Walk(ctx, nil, walkFunc)
+
 	return nil
+
 }
