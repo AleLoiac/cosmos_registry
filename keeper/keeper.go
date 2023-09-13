@@ -1,11 +1,12 @@
 package keeper
 
 import (
-	"fmt"
-
+	"context"
 	"cosmossdk.io/collections"
 	"cosmossdk.io/core/address"
 	storetypes "cosmossdk.io/core/store"
+	"errors"
+	"fmt"
 	"github.com/cosmos/cosmos-sdk/codec"
 
 	"github.com/cosmosregistry/example"
@@ -23,6 +24,8 @@ type Keeper struct {
 	Schema  collections.Schema
 	Params  collections.Item[example.Params]
 	Counter collections.Map[string, uint64]
+
+	Balances collections.Map[string, uint64]
 }
 
 // NewKeeper creates a new Keeper instance
@@ -38,6 +41,7 @@ func NewKeeper(cdc codec.BinaryCodec, addressCodec address.Codec, storeService s
 		authority:    authority,
 		Params:       collections.NewItem(sb, example.ParamsKey, "params", codec.CollValue[example.Params](cdc)),
 		Counter:      collections.NewMap(sb, example.CounterKey, "counter", collections.StringKey, collections.Uint64Value),
+		Balances:     collections.NewMap(sb, example.BalancesKey, "balances", collections.StringKey, collections.Uint64Value),
 	}
 
 	schema, err := sb.Build()
@@ -53,4 +57,45 @@ func NewKeeper(cdc codec.BinaryCodec, addressCodec address.Codec, storeService s
 // GetAuthority returns the module's authority.
 func (k Keeper) GetAuthority() string {
 	return k.authority
+}
+
+func (k Keeper) MintCoins(ctx context.Context, address string, amount uint64) error {
+	balance, err := k.Balances.Get(ctx, address)
+	switch {
+	case errors.Is(err, collections.ErrNotFound):
+		return k.Balances.Set(ctx, address, amount)
+	case err != nil:
+		return err
+	default:
+		return k.Balances.Set(ctx, address, balance+amount)
+	}
+}
+
+func (k Keeper) TransferCoins(ctx context.Context, sender string, receiver string, amount uint64) error {
+	senderBalance, err := k.Balances.Get(ctx, sender)
+	if err != nil {
+		return err
+	}
+	if senderBalance < amount {
+		return errors.New("insufficient balance")
+	}
+
+	return k.MintCoins(ctx, receiver, amount)
+}
+
+func (k Keeper) Burn(ctx context.Context, address string, amount uint64) error {
+	balance, err := k.Balances.Get(ctx, address)
+	switch {
+	case err != nil:
+		return err
+	case balance < amount:
+		return errors.New("insufficient balance")
+	default:
+		return k.Balances.Set(ctx, address, balance-amount)
+	}
+}
+
+func (k Keeper) Export(ctx context.Context) error {
+	fmt.Println(k.Balances.Walk(ctx, nil, nil))
+	return nil
 }

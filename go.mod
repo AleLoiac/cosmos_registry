@@ -2,8 +2,6 @@ module github.com/cosmosregistry/example
 
 go 1.21
 
-toolchain go1.21.0
-
 require (
 	cosmossdk.io/api v0.7.0
 	cosmossdk.io/collections v0.4.0
