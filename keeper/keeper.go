@@ -95,15 +95,17 @@ func (k Keeper) Burn(ctx context.Context, address string, amount uint64) error {
 	}
 }
 
+func walkFunc(key string, value uint64) (stop bool, err error) {
+	fmt.Printf("Key: %v, Value: %v\n", key, value)
+	return false, nil
+}
+
 func (k Keeper) Export(ctx context.Context) error {
 
-	walkFunc := func(key string, value uint64) (stop bool, err error) {
-		fmt.Printf("Key: %v, Value: %v\n", key, value)
-		return false, nil
+	err := k.Balances.Walk(ctx, nil, walkFunc)
+	if err != nil {
+		return err
 	}
 
-	k.Balances.Walk(ctx, nil, walkFunc)
-
 	return nil
-
 }
