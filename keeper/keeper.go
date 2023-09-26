@@ -69,6 +69,7 @@ func (k Keeper) MintCoins(ctx context.Context, address string, amount uint64) er
 	default:
 		return k.Balances.Set(ctx, address, balance+amount)
 	}
+
 }
 
 func (k Keeper) TransferCoins(ctx context.Context, sender string, receiver string, amount uint64) error {
@@ -78,6 +79,10 @@ func (k Keeper) TransferCoins(ctx context.Context, sender string, receiver strin
 	}
 	if senderBalance < amount {
 		return errors.New("insufficient balance")
+	}
+	err = k.Balances.Set(ctx, sender, senderBalance-amount)
+	if err != nil {
+		return err
 	}
 
 	return k.MintCoins(ctx, receiver, amount)
