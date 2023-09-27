@@ -21,10 +21,9 @@ type Keeper struct {
 	authority string
 
 	// state management
-	Schema  collections.Schema
-	Params  collections.Item[example.Params]
-	Counter collections.Map[string, uint64]
-
+	Schema   collections.Schema
+	Params   collections.Item[example.Params]
+	Counter  collections.Map[string, uint64]
 	Balances collections.Map[string, uint64]
 }
 
@@ -112,5 +111,54 @@ func (k Keeper) Export(ctx context.Context) error {
 		return err
 	}
 
+	return nil
+}
+
+type User struct {
+	Address string
+	Wallet  Coins
+}
+
+type Coins struct {
+	denomination string
+	amount       uint64
+}
+
+type Escrow struct {
+	creatorAddress string
+	blockedToken   Coins
+	requestToken   Coins
+	claimed        bool
+}
+
+type BankKeeper struct {
+	escrows map[string]Escrow
+}
+
+func CreateEscrow(creator User, blockedToken Coins, requestToken Coins, escrowID string, keeper BankKeeper) error {
+
+	if creator.Wallet.denomination == blockedToken.denomination && creator.Wallet.amount < blockedToken.amount {
+		return errors.New("not enough coins")
+	}
+
+	escrow := Escrow{
+		creatorAddress: creator.Address,
+		blockedToken:   blockedToken,
+		requestToken:   requestToken,
+		claimed:        false,
+	}
+
+	keeper.escrows[escrowID] = escrow
+	return nil
+}
+
+func ClaimEscrow(claimer User, creator User, escrow Escrow) error {
+	if claimer.Wallet.denomination == escrow.requestToken.denomination && claimer.Wallet.amount < escrow.requestToken.amount {
+		return errors.New("not enough coins")
+	}
+
+	claimer.Wallet.amount = claimer.Wallet.amount + escrow.blockedToken.amount
+	creator.Wallet.amount = creator.Wallet.amount + escrow.blockedToken.amount
+	escrow.claimed = true
 	return nil
 }
