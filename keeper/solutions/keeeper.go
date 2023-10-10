@@ -36,10 +36,19 @@ func (k Keeper) CreateEscrow(ctx context.Context, creator string, lockedAmount, 
 		return fmt.Errorf("can't have multiple escrows")
 	}
 
-	err = k.bk.SendCoins(ctx, creator, moduleName, lockedAmount)
+	escrow := Escrow{
+		LockedCoins: lockedAmount,
+		WantCoin:    wantAmount,
+	}
+	err = k.Escrows.Set(ctx, creator, escrow)
 	if err != nil {
 		return err
 	}
+
+	// err = k.bk.SendCoins(ctx, creator, moduleName, lockedAmount)
+	// if err != nil {
+	// 	return err
+	// }
 	return nil
 }
 
@@ -50,6 +59,11 @@ func (k Keeper) ClaimEscrow(ctx context.Context, claimer, locker string) error {
 	}
 
 	err = k.bk.SendCoins(ctx, claimer, locker, escrow.WantCoin)
+	if err != nil {
+		return err
+	}
+
+	err = k.bk.SendCoins(ctx, locker, claimer, escrow.LockedCoins)
 	if err != nil {
 		return err
 	}
