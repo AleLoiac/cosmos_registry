@@ -31,6 +31,190 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
+type MsgPostTweet struct {
+	Sender string `protobuf:"bytes,1,opt,name=sender,proto3" json:"sender,omitempty"`
+	Text   string `protobuf:"bytes,2,opt,name=text,proto3" json:"text,omitempty"`
+}
+
+func (m *MsgPostTweet) Reset()         { *m = MsgPostTweet{} }
+func (m *MsgPostTweet) String() string { return proto.CompactTextString(m) }
+func (*MsgPostTweet) ProtoMessage()    {}
+func (*MsgPostTweet) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e12a2f8fd7fd29c8, []int{0}
+}
+func (m *MsgPostTweet) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgPostTweet) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgPostTweet.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgPostTweet) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgPostTweet.Merge(m, src)
+}
+func (m *MsgPostTweet) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgPostTweet) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgPostTweet.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgPostTweet proto.InternalMessageInfo
+
+func (m *MsgPostTweet) GetSender() string {
+	if m != nil {
+		return m.Sender
+	}
+	return ""
+}
+
+func (m *MsgPostTweet) GetText() string {
+	if m != nil {
+		return m.Text
+	}
+	return ""
+}
+
+type MsgPostTweetResponse struct {
+}
+
+func (m *MsgPostTweetResponse) Reset()         { *m = MsgPostTweetResponse{} }
+func (m *MsgPostTweetResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgPostTweetResponse) ProtoMessage()    {}
+func (*MsgPostTweetResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e12a2f8fd7fd29c8, []int{1}
+}
+func (m *MsgPostTweetResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgPostTweetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgPostTweetResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgPostTweetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgPostTweetResponse.Merge(m, src)
+}
+func (m *MsgPostTweetResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgPostTweetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgPostTweetResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgPostTweetResponse proto.InternalMessageInfo
+
+type MsgLikeTweet struct {
+	Sender  string `protobuf:"bytes,1,opt,name=sender,proto3" json:"sender,omitempty"`
+	TweetId uint64 `protobuf:"varint,2,opt,name=tweet_id,json=tweetId,proto3" json:"tweet_id,omitempty"`
+}
+
+func (m *MsgLikeTweet) Reset()         { *m = MsgLikeTweet{} }
+func (m *MsgLikeTweet) String() string { return proto.CompactTextString(m) }
+func (*MsgLikeTweet) ProtoMessage()    {}
+func (*MsgLikeTweet) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e12a2f8fd7fd29c8, []int{2}
+}
+func (m *MsgLikeTweet) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgLikeTweet) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgLikeTweet.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgLikeTweet) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgLikeTweet.Merge(m, src)
+}
+func (m *MsgLikeTweet) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgLikeTweet) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgLikeTweet.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgLikeTweet proto.InternalMessageInfo
+
+func (m *MsgLikeTweet) GetSender() string {
+	if m != nil {
+		return m.Sender
+	}
+	return ""
+}
+
+func (m *MsgLikeTweet) GetTweetId() uint64 {
+	if m != nil {
+		return m.TweetId
+	}
+	return 0
+}
+
+type MsgLikeTweetResponse struct {
+	LikesNumber uint32 `protobuf:"varint,1,opt,name=likes_number,json=likesNumber,proto3" json:"likes_number,omitempty"`
+}
+
+func (m *MsgLikeTweetResponse) Reset()         { *m = MsgLikeTweetResponse{} }
+func (m *MsgLikeTweetResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgLikeTweetResponse) ProtoMessage()    {}
+func (*MsgLikeTweetResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_e12a2f8fd7fd29c8, []int{3}
+}
+func (m *MsgLikeTweetResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *MsgLikeTweetResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_MsgLikeTweetResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *MsgLikeTweetResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgLikeTweetResponse.Merge(m, src)
+}
+func (m *MsgLikeTweetResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *MsgLikeTweetResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgLikeTweetResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MsgLikeTweetResponse proto.InternalMessageInfo
+
+func (m *MsgLikeTweetResponse) GetLikesNumber() uint32 {
+	if m != nil {
+		return m.LikesNumber
+	}
+	return 0
+}
+
 // MsgIncrementCounter defines the Msg/IncrementCounter request type.
 type MsgIncrementCounter struct {
 	// sender is the message sender.
@@ -41,7 +225,7 @@ func (m *MsgIncrementCounter) Reset()         { *m = MsgIncrementCounter{} }
 func (m *MsgIncrementCounter) String() string { return proto.CompactTextString(m) }
 func (*MsgIncrementCounter) ProtoMessage()    {}
 func (*MsgIncrementCounter) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e12a2f8fd7fd29c8, []int{0}
+	return fileDescriptor_e12a2f8fd7fd29c8, []int{4}
 }
 func (m *MsgIncrementCounter) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -85,7 +269,7 @@ func (m *MsgIncrementCounterResponse) Reset()         { *m = MsgIncrementCounter
 func (m *MsgIncrementCounterResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgIncrementCounterResponse) ProtoMessage()    {}
 func (*MsgIncrementCounterResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e12a2f8fd7fd29c8, []int{1}
+	return fileDescriptor_e12a2f8fd7fd29c8, []int{5}
 }
 func (m *MsgIncrementCounterResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -128,7 +312,7 @@ func (m *MsgUpdateParams) Reset()         { *m = MsgUpdateParams{} }
 func (m *MsgUpdateParams) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateParams) ProtoMessage()    {}
 func (*MsgUpdateParams) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e12a2f8fd7fd29c8, []int{2}
+	return fileDescriptor_e12a2f8fd7fd29c8, []int{6}
 }
 func (m *MsgUpdateParams) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -180,7 +364,7 @@ func (m *MsgUpdateParamsResponse) Reset()         { *m = MsgUpdateParamsResponse
 func (m *MsgUpdateParamsResponse) String() string { return proto.CompactTextString(m) }
 func (*MsgUpdateParamsResponse) ProtoMessage()    {}
 func (*MsgUpdateParamsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_e12a2f8fd7fd29c8, []int{3}
+	return fileDescriptor_e12a2f8fd7fd29c8, []int{7}
 }
 func (m *MsgUpdateParamsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -210,6 +394,10 @@ func (m *MsgUpdateParamsResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgUpdateParamsResponse proto.InternalMessageInfo
 
 func init() {
+	proto.RegisterType((*MsgPostTweet)(nil), "cosmosregistry.example.v1.MsgPostTweet")
+	proto.RegisterType((*MsgPostTweetResponse)(nil), "cosmosregistry.example.v1.MsgPostTweetResponse")
+	proto.RegisterType((*MsgLikeTweet)(nil), "cosmosregistry.example.v1.MsgLikeTweet")
+	proto.RegisterType((*MsgLikeTweetResponse)(nil), "cosmosregistry.example.v1.MsgLikeTweetResponse")
 	proto.RegisterType((*MsgIncrementCounter)(nil), "cosmosregistry.example.v1.MsgIncrementCounter")
 	proto.RegisterType((*MsgIncrementCounterResponse)(nil), "cosmosregistry.example.v1.MsgIncrementCounterResponse")
 	proto.RegisterType((*MsgUpdateParams)(nil), "cosmosregistry.example.v1.MsgUpdateParams")
@@ -221,34 +409,41 @@ func init() {
 }
 
 var fileDescriptor_e12a2f8fd7fd29c8 = []byte{
-	// 419 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x52, 0x4a, 0xce, 0x2f, 0xce,
-	0xcd, 0x2f, 0x2e, 0x4a, 0x4d, 0xcf, 0x2c, 0x2e, 0x29, 0xaa, 0xd4, 0x4f, 0xad, 0x48, 0xcc, 0x2d,
-	0xc8, 0x49, 0xd5, 0x2f, 0x33, 0xd4, 0x2f, 0xa9, 0xd0, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x92,
-	0x44, 0x55, 0xa3, 0x07, 0x55, 0xa3, 0x57, 0x66, 0x28, 0x25, 0x0e, 0x91, 0xd2, 0xcf, 0x2d, 0x4e,
-	0x07, 0x69, 0xc9, 0x2d, 0x4e, 0x87, 0xe8, 0x91, 0x12, 0x49, 0xcf, 0x4f, 0xcf, 0x07, 0x33, 0xf5,
-	0x41, 0x2c, 0xa8, 0xa8, 0x60, 0x62, 0x6e, 0x66, 0x5e, 0xbe, 0x3e, 0x98, 0x84, 0x0a, 0xa9, 0xe2,
-	0x71, 0x40, 0x65, 0x41, 0x6a, 0x31, 0x54, 0x19, 0xd4, 0x0d, 0xf1, 0x10, 0x23, 0x21, 0x1c, 0x88,
-	0x94, 0x52, 0x26, 0x97, 0xb0, 0x6f, 0x71, 0xba, 0x67, 0x5e, 0x72, 0x51, 0x6a, 0x6e, 0x6a, 0x5e,
-	0x89, 0x73, 0x7e, 0x69, 0x5e, 0x49, 0x6a, 0x91, 0x90, 0x18, 0x17, 0x5b, 0x71, 0x6a, 0x5e, 0x4a,
-	0x6a, 0x91, 0x04, 0xa3, 0x02, 0xa3, 0x06, 0x67, 0x10, 0x94, 0x67, 0x65, 0xd5, 0xf4, 0x7c, 0x83,
-	0x16, 0x94, 0xd3, 0xf5, 0x7c, 0x83, 0x96, 0x16, 0x0e, 0x07, 0x60, 0x31, 0x53, 0x49, 0x96, 0x4b,
-	0x1a, 0x8b, 0x70, 0x50, 0x6a, 0x71, 0x41, 0x7e, 0x5e, 0x71, 0xaa, 0xd2, 0x29, 0x46, 0x2e, 0x7e,
-	0xdf, 0xe2, 0xf4, 0xd0, 0x82, 0x94, 0xc4, 0x92, 0xd4, 0x80, 0xc4, 0xa2, 0xc4, 0xdc, 0x62, 0x21,
-	0x33, 0x2e, 0xce, 0xc4, 0xd2, 0x92, 0x8c, 0xfc, 0xa2, 0xcc, 0x92, 0x4a, 0x88, 0x4b, 0x9c, 0x24,
-	0x2e, 0x6d, 0xd1, 0x15, 0x81, 0x7a, 0xc1, 0x31, 0x25, 0xa5, 0x28, 0xb5, 0xb8, 0x38, 0xb8, 0xa4,
-	0x28, 0x33, 0x2f, 0x3d, 0x08, 0xa1, 0x54, 0xc8, 0x85, 0x8b, 0xad, 0x00, 0x6c, 0x82, 0x04, 0x93,
-	0x02, 0xa3, 0x06, 0xb7, 0x91, 0xa2, 0x1e, 0xce, 0x58, 0xd0, 0x83, 0x58, 0xe5, 0xc4, 0x79, 0xe2,
-	0x9e, 0x3c, 0xc3, 0x8a, 0xe7, 0x1b, 0xb4, 0x18, 0x83, 0xa0, 0x7a, 0xad, 0x2c, 0x41, 0x9e, 0x45,
-	0x98, 0x0a, 0xf2, 0xaf, 0x1a, 0x6e, 0xff, 0x22, 0x3b, 0x5c, 0x49, 0x92, 0x4b, 0x1c, 0x4d, 0x08,
-	0xe6, 0x4f, 0xa3, 0x1f, 0x8c, 0x5c, 0xcc, 0xbe, 0xc5, 0xe9, 0x42, 0x55, 0x5c, 0x02, 0x18, 0xc1,
-	0xae, 0x87, 0xc7, 0x9d, 0x58, 0xc2, 0x4e, 0xca, 0x8c, 0x34, 0xf5, 0x30, 0x37, 0x08, 0xe5, 0x71,
-	0xf1, 0xa0, 0x84, 0xb3, 0x16, 0x7e, 0x73, 0x90, 0xd5, 0x4a, 0x19, 0x11, 0xaf, 0x16, 0x66, 0x9f,
-	0x14, 0x6b, 0x03, 0x28, 0x60, 0x9d, 0xac, 0x4f, 0x3c, 0x92, 0x63, 0xbc, 0xf0, 0x48, 0x8e, 0xf1,
-	0xc1, 0x23, 0x39, 0xc6, 0x09, 0x8f, 0xe5, 0x18, 0x2e, 0x3c, 0x96, 0x63, 0xb8, 0xf1, 0x58, 0x8e,
-	0x21, 0x4a, 0x31, 0x3d, 0xb3, 0x24, 0xa3, 0x34, 0x49, 0x2f, 0x39, 0x3f, 0x57, 0x1f, 0x7b, 0x10,
-	0x27, 0xb1, 0x81, 0x13, 0xac, 0x31, 0x20, 0x00, 0x00, 0xff, 0xff, 0x4b, 0x8d, 0x12, 0x43, 0x75,
-	0x03, 0x00, 0x00,
+	// 543 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x54, 0xcf, 0x8b, 0xd3, 0x40,
+	0x14, 0x6e, 0xdc, 0xb5, 0xda, 0x69, 0x45, 0x8d, 0x65, 0xb7, 0x8d, 0x18, 0x6d, 0xc0, 0x1f, 0x14,
+	0x4c, 0xd8, 0x0a, 0x0b, 0x5b, 0x4f, 0x56, 0x41, 0x16, 0xec, 0xb2, 0x44, 0xbd, 0x78, 0x29, 0x69,
+	0xf3, 0x98, 0x0d, 0xbb, 0xc9, 0x84, 0x99, 0xe9, 0xda, 0x7a, 0x12, 0x8f, 0x9e, 0xfc, 0x33, 0x3c,
+	0xf6, 0xe0, 0xdf, 0x20, 0x8b, 0xa7, 0xc5, 0x93, 0x27, 0x91, 0xf6, 0xd0, 0x7f, 0x43, 0x32, 0x99,
+	0xa6, 0xa9, 0xdb, 0x66, 0xd7, 0x4b, 0x99, 0xf9, 0xe6, 0x7b, 0xdf, 0xf7, 0xde, 0xeb, 0x47, 0x90,
+	0xd1, 0x23, 0xcc, 0x27, 0x8c, 0x02, 0xf6, 0x18, 0xa7, 0x43, 0x0b, 0x06, 0x8e, 0x1f, 0x1e, 0x81,
+	0x75, 0xbc, 0x65, 0xf1, 0x81, 0x19, 0x52, 0xc2, 0x89, 0x5a, 0x5d, 0xe4, 0x98, 0x92, 0x63, 0x1e,
+	0x6f, 0x69, 0x9b, 0xf1, 0x93, 0xe5, 0x33, 0x1c, 0x95, 0xf8, 0x0c, 0xc7, 0x35, 0x5a, 0x19, 0x13,
+	0x4c, 0xc4, 0xd1, 0x8a, 0x4e, 0x12, 0xbd, 0xe9, 0xf8, 0x5e, 0x40, 0x2c, 0xf1, 0x2b, 0xa1, 0xfb,
+	0x19, 0x0d, 0x0c, 0x43, 0x60, 0x92, 0x26, 0x7b, 0xe8, 0xc4, 0x92, 0xf1, 0x25, 0x7e, 0x32, 0x5e,
+	0xa2, 0x52, 0x9b, 0xe1, 0x7d, 0xc2, 0xf8, 0x9b, 0xf7, 0x00, 0x5c, 0xdd, 0x40, 0x79, 0x06, 0x81,
+	0x0b, 0xb4, 0xa2, 0xdc, 0x53, 0x1e, 0x15, 0x6c, 0x79, 0x53, 0x55, 0xb4, 0xce, 0x61, 0xc0, 0x2b,
+	0x97, 0x04, 0x2a, 0xce, 0xcd, 0xe2, 0xa7, 0xe9, 0xa8, 0x2e, 0x09, 0xc6, 0x06, 0x2a, 0xa7, 0x85,
+	0x6c, 0x60, 0x21, 0x09, 0x18, 0x18, 0x7b, 0xc2, 0xe0, 0x95, 0x77, 0x08, 0xd9, 0x06, 0x55, 0x74,
+	0x95, 0x47, 0x84, 0x8e, 0xe7, 0x0a, 0x93, 0x75, 0xfb, 0x8a, 0xb8, 0xef, 0xba, 0x8b, 0x3e, 0x3b,
+	0xc2, 0x27, 0xd1, 0x9b, 0xf9, 0xa8, 0x35, 0x54, 0x3a, 0xf2, 0x0e, 0x81, 0x75, 0x82, 0xbe, 0xdf,
+	0x95, 0xea, 0xd7, 0xec, 0xa2, 0xc0, 0xf6, 0x04, 0x64, 0x78, 0xe8, 0x56, 0x9b, 0xe1, 0xdd, 0xa0,
+	0x47, 0xc1, 0x87, 0x80, 0x3f, 0x27, 0xfd, 0x80, 0x03, 0x5d, 0xd5, 0x51, 0xb3, 0x99, 0xb2, 0xfd,
+	0x3c, 0x1d, 0xd5, 0xeb, 0x2b, 0x96, 0xbd, 0x44, 0xd3, 0xb8, 0x83, 0x6e, 0x2f, 0x81, 0x93, 0xa5,
+	0xfc, 0x50, 0xd0, 0xf5, 0x36, 0xc3, 0x6f, 0x43, 0xd7, 0xe1, 0xb0, 0xef, 0x50, 0xc7, 0x67, 0xea,
+	0x36, 0x2a, 0x38, 0x7d, 0x7e, 0x40, 0xa8, 0xc7, 0x87, 0x71, 0x27, 0xad, 0xca, 0xcf, 0x6f, 0x8f,
+	0xcb, 0xf2, 0xef, 0x7a, 0xe6, 0xba, 0x14, 0x18, 0x7b, 0xcd, 0xa9, 0x17, 0x60, 0x7b, 0x4e, 0x55,
+	0x5f, 0xa0, 0x7c, 0x28, 0x14, 0xc4, 0xda, 0x8a, 0x8d, 0x9a, 0xb9, 0x32, 0x71, 0x66, 0x6c, 0xd5,
+	0x2a, 0x9c, 0xfc, 0xbe, 0x9b, 0xfb, 0x3a, 0x1d, 0xd5, 0x15, 0x5b, 0xd6, 0x36, 0x77, 0xa2, 0x61,
+	0xe7, 0xaa, 0xd1, 0xbc, 0x0f, 0x56, 0xcf, 0x9b, 0x6e, 0xdc, 0xa8, 0xa2, 0xcd, 0x7f, 0xa0, 0xd9,
+	0x9c, 0x8d, 0xef, 0x6b, 0x68, 0xad, 0xcd, 0xb0, 0xfa, 0x01, 0xdd, 0x38, 0xb3, 0x76, 0x33, 0xa3,
+	0xcf, 0x25, 0xbb, 0xd3, 0xb6, 0xff, 0x8f, 0x9f, 0x04, 0x03, 0x50, 0x61, 0x1e, 0xef, 0x87, 0xd9,
+	0x22, 0x09, 0x51, 0xb3, 0x2e, 0x48, 0x4c, 0xdb, 0xcc, 0x43, 0x7e, 0x8e, 0x4d, 0x42, 0x3c, 0xcf,
+	0xe6, 0x6c, 0xcc, 0x03, 0x54, 0x5a, 0x48, 0x4d, 0x3d, 0x5b, 0x20, 0xcd, 0xd5, 0x1a, 0x17, 0xe7,
+	0xce, 0xfc, 0xb4, 0xcb, 0x1f, 0xa3, 0x98, 0xb4, 0x9e, 0x9e, 0x8c, 0x75, 0xe5, 0x74, 0xac, 0x2b,
+	0x7f, 0xc6, 0xba, 0xf2, 0x65, 0xa2, 0xe7, 0x4e, 0x27, 0x7a, 0xee, 0xd7, 0x44, 0xcf, 0xbd, 0xab,
+	0x61, 0x8f, 0x1f, 0xf4, 0xbb, 0x66, 0x8f, 0xf8, 0xd6, 0xf2, 0xc0, 0x74, 0xf3, 0xe2, 0x53, 0xf3,
+	0xe4, 0x6f, 0x00, 0x00, 0x00, 0xff, 0xff, 0x53, 0xac, 0x2a, 0x06, 0x2f, 0x05, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -265,6 +460,8 @@ const _ = grpc.SupportPackageIsVersion4
 type MsgClient interface {
 	// IncrementCounter increments the counter.
 	IncrementCounter(ctx context.Context, in *MsgIncrementCounter, opts ...grpc.CallOption) (*MsgIncrementCounterResponse, error)
+	PostTweet(ctx context.Context, in *MsgPostTweet, opts ...grpc.CallOption) (*MsgPostTweetResponse, error)
+	LikeTweet(ctx context.Context, in *MsgLikeTweet, opts ...grpc.CallOption) (*MsgLikeTweetResponse, error)
 	// UpdateParams updates the module parameters.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 }
@@ -286,6 +483,24 @@ func (c *msgClient) IncrementCounter(ctx context.Context, in *MsgIncrementCounte
 	return out, nil
 }
 
+func (c *msgClient) PostTweet(ctx context.Context, in *MsgPostTweet, opts ...grpc.CallOption) (*MsgPostTweetResponse, error) {
+	out := new(MsgPostTweetResponse)
+	err := c.cc.Invoke(ctx, "/cosmosregistry.example.v1.Msg/PostTweet", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) LikeTweet(ctx context.Context, in *MsgLikeTweet, opts ...grpc.CallOption) (*MsgLikeTweetResponse, error) {
+	out := new(MsgLikeTweetResponse)
+	err := c.cc.Invoke(ctx, "/cosmosregistry.example.v1.Msg/LikeTweet", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error) {
 	out := new(MsgUpdateParamsResponse)
 	err := c.cc.Invoke(ctx, "/cosmosregistry.example.v1.Msg/UpdateParams", in, out, opts...)
@@ -299,6 +514,8 @@ func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts 
 type MsgServer interface {
 	// IncrementCounter increments the counter.
 	IncrementCounter(context.Context, *MsgIncrementCounter) (*MsgIncrementCounterResponse, error)
+	PostTweet(context.Context, *MsgPostTweet) (*MsgPostTweetResponse, error)
+	LikeTweet(context.Context, *MsgLikeTweet) (*MsgLikeTweetResponse, error)
 	// UpdateParams updates the module parameters.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 }
@@ -309,6 +526,12 @@ type UnimplementedMsgServer struct {
 
 func (*UnimplementedMsgServer) IncrementCounter(ctx context.Context, req *MsgIncrementCounter) (*MsgIncrementCounterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method IncrementCounter not implemented")
+}
+func (*UnimplementedMsgServer) PostTweet(ctx context.Context, req *MsgPostTweet) (*MsgPostTweetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PostTweet not implemented")
+}
+func (*UnimplementedMsgServer) LikeTweet(ctx context.Context, req *MsgLikeTweet) (*MsgLikeTweetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LikeTweet not implemented")
 }
 func (*UnimplementedMsgServer) UpdateParams(ctx context.Context, req *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
@@ -332,6 +555,42 @@ func _Msg_IncrementCounter_Handler(srv interface{}, ctx context.Context, dec fun
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MsgServer).IncrementCounter(ctx, req.(*MsgIncrementCounter))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_PostTweet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgPostTweet)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).PostTweet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cosmosregistry.example.v1.Msg/PostTweet",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).PostTweet(ctx, req.(*MsgPostTweet))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_LikeTweet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgLikeTweet)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).LikeTweet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/cosmosregistry.example.v1.Msg/LikeTweet",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).LikeTweet(ctx, req.(*MsgLikeTweet))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -363,12 +622,143 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Msg_IncrementCounter_Handler,
 		},
 		{
+			MethodName: "PostTweet",
+			Handler:    _Msg_PostTweet_Handler,
+		},
+		{
+			MethodName: "LikeTweet",
+			Handler:    _Msg_LikeTweet_Handler,
+		},
+		{
 			MethodName: "UpdateParams",
 			Handler:    _Msg_UpdateParams_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "cosmosregistry/example/v1/tx.proto",
+}
+
+func (m *MsgPostTweet) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgPostTweet) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgPostTweet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Text) > 0 {
+		i -= len(m.Text)
+		copy(dAtA[i:], m.Text)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Text)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Sender) > 0 {
+		i -= len(m.Sender)
+		copy(dAtA[i:], m.Sender)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Sender)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgPostTweetResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgPostTweetResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgPostTweetResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgLikeTweet) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgLikeTweet) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgLikeTweet) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.TweetId != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.TweetId))
+		i--
+		dAtA[i] = 0x10
+	}
+	if len(m.Sender) > 0 {
+		i -= len(m.Sender)
+		copy(dAtA[i:], m.Sender)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.Sender)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *MsgLikeTweetResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *MsgLikeTweetResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *MsgLikeTweetResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.LikesNumber != 0 {
+		i = encodeVarintTx(dAtA, i, uint64(m.LikesNumber))
+		i--
+		dAtA[i] = 0x8
+	}
+	return len(dAtA) - i, nil
 }
 
 func (m *MsgIncrementCounter) Marshal() (dAtA []byte, err error) {
@@ -498,6 +888,60 @@ func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
+func (m *MsgPostTweet) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Sender)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	l = len(m.Text)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	return n
+}
+
+func (m *MsgPostTweetResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	return n
+}
+
+func (m *MsgLikeTweet) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Sender)
+	if l > 0 {
+		n += 1 + l + sovTx(uint64(l))
+	}
+	if m.TweetId != 0 {
+		n += 1 + sovTx(uint64(m.TweetId))
+	}
+	return n
+}
+
+func (m *MsgLikeTweetResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.LikesNumber != 0 {
+		n += 1 + sovTx(uint64(m.LikesNumber))
+	}
+	return n
+}
+
 func (m *MsgIncrementCounter) Size() (n int) {
 	if m == nil {
 		return 0
@@ -549,6 +993,340 @@ func sovTx(x uint64) (n int) {
 }
 func sozTx(x uint64) (n int) {
 	return sovTx(uint64((x << 1) ^ uint64((int64(x) >> 63))))
+}
+func (m *MsgPostTweet) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgPostTweet: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgPostTweet: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Sender", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Sender = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Text", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Text = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgPostTweetResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgPostTweetResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgPostTweetResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgLikeTweet) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgLikeTweet: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgLikeTweet: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Sender", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthTx
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthTx
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Sender = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 2:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field TweetId", wireType)
+			}
+			m.TweetId = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.TweetId |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *MsgLikeTweetResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowTx
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: MsgLikeTweetResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: MsgLikeTweetResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 0 {
+				return fmt.Errorf("proto: wrong wireType = %d for field LikesNumber", wireType)
+			}
+			m.LikesNumber = 0
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowTx
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				m.LikesNumber |= uint32(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+		default:
+			iNdEx = preIndex
+			skippy, err := skipTx(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthTx
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
 }
 func (m *MsgIncrementCounter) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)

@@ -7,5 +7,6 @@ const ModuleName = "example"
 var (
 	ParamsKey   = collections.NewPrefix(0)
 	CounterKey  = collections.NewPrefix(1)
-	BalancesKey = collections.NewPrefix(2)
+	TweetsIDKey = collections.NewPrefix(2)
+	TweetsKey   = collections.NewPrefix(3)
 )

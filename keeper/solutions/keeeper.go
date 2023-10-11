@@ -45,10 +45,10 @@ func (k Keeper) CreateEscrow(ctx context.Context, creator string, lockedAmount, 
 		return err
 	}
 
-	// err = k.bk.SendCoins(ctx, creator, moduleName, lockedAmount)
-	// if err != nil {
-	// 	return err
-	// }
+	err = k.bk.SendCoins(ctx, creator, moduleName, lockedAmount)
+	if err != nil {
+		return err
+	}
 	return nil
 }
 
@@ -63,7 +63,7 @@ func (k Keeper) ClaimEscrow(ctx context.Context, claimer, locker string) error {
 		return err
 	}
 
-	err = k.bk.SendCoins(ctx, locker, claimer, escrow.LockedCoins)
+	err = k.bk.SendCoins(ctx, moduleName, claimer, escrow.LockedCoins)
 	if err != nil {
 		return err
 	}

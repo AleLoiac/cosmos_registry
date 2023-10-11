@@ -20,6 +20,8 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	Msg_IncrementCounter_FullMethodName = "/cosmosregistry.example.v1.Msg/IncrementCounter"
+	Msg_PostTweet_FullMethodName        = "/cosmosregistry.example.v1.Msg/PostTweet"
+	Msg_LikeTweet_FullMethodName        = "/cosmosregistry.example.v1.Msg/LikeTweet"
 	Msg_UpdateParams_FullMethodName     = "/cosmosregistry.example.v1.Msg/UpdateParams"
 )
 
@@ -29,6 +31,8 @@ const (
 type MsgClient interface {
 	// IncrementCounter increments the counter.
 	IncrementCounter(ctx context.Context, in *MsgIncrementCounter, opts ...grpc.CallOption) (*MsgIncrementCounterResponse, error)
+	PostTweet(ctx context.Context, in *MsgPostTweet, opts ...grpc.CallOption) (*MsgPostTweetResponse, error)
+	LikeTweet(ctx context.Context, in *MsgLikeTweet, opts ...grpc.CallOption) (*MsgLikeTweetResponse, error)
 	// UpdateParams updates the module parameters.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 }
@@ -50,6 +54,24 @@ func (c *msgClient) IncrementCounter(ctx context.Context, in *MsgIncrementCounte
 	return out, nil
 }
 
+func (c *msgClient) PostTweet(ctx context.Context, in *MsgPostTweet, opts ...grpc.CallOption) (*MsgPostTweetResponse, error) {
+	out := new(MsgPostTweetResponse)
+	err := c.cc.Invoke(ctx, Msg_PostTweet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *msgClient) LikeTweet(ctx context.Context, in *MsgLikeTweet, opts ...grpc.CallOption) (*MsgLikeTweetResponse, error) {
+	out := new(MsgLikeTweetResponse)
+	err := c.cc.Invoke(ctx, Msg_LikeTweet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error) {
 	out := new(MsgUpdateParamsResponse)
 	err := c.cc.Invoke(ctx, Msg_UpdateParams_FullMethodName, in, out, opts...)
@@ -65,6 +87,8 @@ func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts 
 type MsgServer interface {
 	// IncrementCounter increments the counter.
 	IncrementCounter(context.Context, *MsgIncrementCounter) (*MsgIncrementCounterResponse, error)
+	PostTweet(context.Context, *MsgPostTweet) (*MsgPostTweetResponse, error)
+	LikeTweet(context.Context, *MsgLikeTweet) (*MsgLikeTweetResponse, error)
 	// UpdateParams updates the module parameters.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	mustEmbedUnimplementedMsgServer()
@@ -76,6 +100,12 @@ type UnimplementedMsgServer struct {
 
 func (UnimplementedMsgServer) IncrementCounter(context.Context, *MsgIncrementCounter) (*MsgIncrementCounterResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method IncrementCounter not implemented")
+}
+func (UnimplementedMsgServer) PostTweet(context.Context, *MsgPostTweet) (*MsgPostTweetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method PostTweet not implemented")
+}
+func (UnimplementedMsgServer) LikeTweet(context.Context, *MsgLikeTweet) (*MsgLikeTweetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method LikeTweet not implemented")
 }
 func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
@@ -111,6 +141,42 @@ func _Msg_IncrementCounter_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_PostTweet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgPostTweet)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).PostTweet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_PostTweet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).PostTweet(ctx, req.(*MsgPostTweet))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Msg_LikeTweet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgLikeTweet)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).LikeTweet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_LikeTweet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).LikeTweet(ctx, req.(*MsgLikeTweet))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MsgUpdateParams)
 	if err := dec(in); err != nil {
@@ -139,6 +205,14 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "IncrementCounter",
 			Handler:    _Msg_IncrementCounter_Handler,
+		},
+		{
+			MethodName: "PostTweet",
+			Handler:    _Msg_PostTweet_Handler,
+		},
+		{
+			MethodName: "LikeTweet",
+			Handler:    _Msg_LikeTweet_Handler,
 		},
 		{
 			MethodName: "UpdateParams",

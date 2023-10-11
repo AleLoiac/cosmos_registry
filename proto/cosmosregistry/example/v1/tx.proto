@@ -17,8 +17,32 @@ service Msg {
   rpc IncrementCounter(MsgIncrementCounter)
       returns (MsgIncrementCounterResponse);
 
+  rpc PostTweet(MsgPostTweet) returns (MsgPostTweetResponse);
+
+  rpc LikeTweet(MsgLikeTweet) returns (MsgLikeTweetResponse);
+
   // UpdateParams updates the module parameters.
   rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
+}
+
+message MsgPostTweet {
+  option (cosmos.msg.v1.signer) = "sender"; //specifica il firmatario
+
+  string sender = 1;
+  string text = 2;
+}
+
+message MsgPostTweetResponse {}
+
+message MsgLikeTweet {
+  option (cosmos.msg.v1.signer) = "sender";
+
+  string sender = 1;
+  uint64 tweet_id = 2;
+}
+
+message MsgLikeTweetResponse {
+  uint32 likes_number = 1 ;
 }
 
 // MsgIncrementCounter defines the Msg/IncrementCounter request type.

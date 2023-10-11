@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 	"strings"
 
 	"cosmossdk.io/collections"
@@ -12,6 +13,54 @@ import (
 
 type msgServer struct {
 	k Keeper
+}
+
+func (ms msgServer) PostTweet(ctx context.Context, msg *example.MsgPostTweet) (*example.MsgPostTweetResponse, error) {
+	if msg.Text == "" {
+		return nil, errors.New("empty text")
+	}
+
+	tweetID, err := ms.k.TweetsID.Next(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	sdkCtx := sdk.UnwrapSDKContext(ctx)
+
+	tweet := example.Tweet{
+		Creator: msg.GetSender(),
+		Text:    msg.GetText(),
+		Height:  uint64(sdkCtx.BlockHeight()),
+		Likes:   0,
+	}
+
+	err = ms.k.Tweets.Set(ctx, tweetID, tweet)
+	if err != nil {
+		return nil, err
+	}
+
+	return new(example.MsgPostTweetResponse), nil
+}
+
+func (ms msgServer) LikeTweet(ctx context.Context, msg *example.MsgLikeTweet) (*example.MsgLikeTweetResponse, error) {
+
+	tweetID := msg.GetTweetId()
+
+	err := ms.k.Tweets.Set(ctx, tweetID, example.Tweet{Likes: +1})
+	if err != nil {
+		return nil, err
+	}
+
+	tweetLikes, err := ms.k.Tweets.Get(ctx, tweetID)
+	if err != nil {
+		return nil, err
+	}
+
+	numberLikes := tweetLikes.GetLikes()
+
+	response := &example.MsgLikeTweetResponse{LikesNumber: numberLikes}
+
+	return response, nil
 }
 
 var _ example.MsgServer = msgServer{}
