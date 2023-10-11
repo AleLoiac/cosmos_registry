@@ -46,19 +46,19 @@ func (ms msgServer) LikeTweet(ctx context.Context, msg *example.MsgLikeTweet) (*
 
 	tweetID := msg.GetTweetId()
 
-	err := ms.k.Tweets.Set(ctx, tweetID, example.Tweet{Likes: +1})
+	tweet, err := ms.k.Tweets.Get(ctx, tweetID)
 	if err != nil {
 		return nil, err
 	}
 
-	tweetLikes, err := ms.k.Tweets.Get(ctx, tweetID)
+	numberLikes := tweet.GetLikes()
+
+	err = ms.k.Tweets.Set(ctx, tweetID, example.Tweet{Likes: numberLikes + 1})
 	if err != nil {
 		return nil, err
 	}
 
-	numberLikes := tweetLikes.GetLikes()
-
-	response := &example.MsgLikeTweetResponse{LikesNumber: numberLikes}
+	response := &example.MsgLikeTweetResponse{LikesNumber: numberLikes + 1}
 
 	return response, nil
 }
