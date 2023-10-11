@@ -22,6 +22,7 @@ const (
 	Msg_IncrementCounter_FullMethodName = "/cosmosregistry.example.v1.Msg/IncrementCounter"
 	Msg_PostTweet_FullMethodName        = "/cosmosregistry.example.v1.Msg/PostTweet"
 	Msg_LikeTweet_FullMethodName        = "/cosmosregistry.example.v1.Msg/LikeTweet"
+	Msg_DeleteTweet_FullMethodName      = "/cosmosregistry.example.v1.Msg/DeleteTweet"
 	Msg_UpdateParams_FullMethodName     = "/cosmosregistry.example.v1.Msg/UpdateParams"
 )
 
@@ -33,6 +34,7 @@ type MsgClient interface {
 	IncrementCounter(ctx context.Context, in *MsgIncrementCounter, opts ...grpc.CallOption) (*MsgIncrementCounterResponse, error)
 	PostTweet(ctx context.Context, in *MsgPostTweet, opts ...grpc.CallOption) (*MsgPostTweetResponse, error)
 	LikeTweet(ctx context.Context, in *MsgLikeTweet, opts ...grpc.CallOption) (*MsgLikeTweetResponse, error)
+	DeleteTweet(ctx context.Context, in *MsgDeleteTweet, opts ...grpc.CallOption) (*MsgDeleteTweetResponse, error)
 	// UpdateParams updates the module parameters.
 	UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error)
 }
@@ -72,6 +74,15 @@ func (c *msgClient) LikeTweet(ctx context.Context, in *MsgLikeTweet, opts ...grp
 	return out, nil
 }
 
+func (c *msgClient) DeleteTweet(ctx context.Context, in *MsgDeleteTweet, opts ...grpc.CallOption) (*MsgDeleteTweetResponse, error) {
+	out := new(MsgDeleteTweetResponse)
+	err := c.cc.Invoke(ctx, Msg_DeleteTweet_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *msgClient) UpdateParams(ctx context.Context, in *MsgUpdateParams, opts ...grpc.CallOption) (*MsgUpdateParamsResponse, error) {
 	out := new(MsgUpdateParamsResponse)
 	err := c.cc.Invoke(ctx, Msg_UpdateParams_FullMethodName, in, out, opts...)
@@ -89,6 +100,7 @@ type MsgServer interface {
 	IncrementCounter(context.Context, *MsgIncrementCounter) (*MsgIncrementCounterResponse, error)
 	PostTweet(context.Context, *MsgPostTweet) (*MsgPostTweetResponse, error)
 	LikeTweet(context.Context, *MsgLikeTweet) (*MsgLikeTweetResponse, error)
+	DeleteTweet(context.Context, *MsgDeleteTweet) (*MsgDeleteTweetResponse, error)
 	// UpdateParams updates the module parameters.
 	UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error)
 	mustEmbedUnimplementedMsgServer()
@@ -106,6 +118,9 @@ func (UnimplementedMsgServer) PostTweet(context.Context, *MsgPostTweet) (*MsgPos
 }
 func (UnimplementedMsgServer) LikeTweet(context.Context, *MsgLikeTweet) (*MsgLikeTweetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LikeTweet not implemented")
+}
+func (UnimplementedMsgServer) DeleteTweet(context.Context, *MsgDeleteTweet) (*MsgDeleteTweetResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteTweet not implemented")
 }
 func (UnimplementedMsgServer) UpdateParams(context.Context, *MsgUpdateParams) (*MsgUpdateParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateParams not implemented")
@@ -177,6 +192,24 @@ func _Msg_LikeTweet_Handler(srv interface{}, ctx context.Context, dec func(inter
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Msg_DeleteTweet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgDeleteTweet)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(MsgServer).DeleteTweet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Msg_DeleteTweet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(MsgServer).DeleteTweet(ctx, req.(*MsgDeleteTweet))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _Msg_UpdateParams_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MsgUpdateParams)
 	if err := dec(in); err != nil {
@@ -213,6 +246,10 @@ var Msg_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LikeTweet",
 			Handler:    _Msg_LikeTweet_Handler,
+		},
+		{
+			MethodName: "DeleteTweet",
+			Handler:    _Msg_DeleteTweet_Handler,
 		},
 		{
 			MethodName: "UpdateParams",

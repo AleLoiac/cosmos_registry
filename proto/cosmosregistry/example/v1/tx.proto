@@ -21,6 +21,8 @@ service Msg {
 
   rpc LikeTweet(MsgLikeTweet) returns (MsgLikeTweetResponse);
 
+  rpc DeleteTweet(MsgDeleteTweet) returns (MsgDeleteTweetResponse);
+
   // UpdateParams updates the module parameters.
   rpc UpdateParams(MsgUpdateParams) returns (MsgUpdateParamsResponse);
 }
@@ -44,6 +46,15 @@ message MsgLikeTweet {
 message MsgLikeTweetResponse {
   uint32 likes_number = 1 ;
 }
+
+message MsgDeleteTweet {
+  option (cosmos.msg.v1.signer) = "sender";
+
+  string sender = 1;
+  uint64 tweet_id = 2;
+}
+
+message MsgDeleteTweetResponse {}
 
 // MsgIncrementCounter defines the Msg/IncrementCounter request type.
 message MsgIncrementCounter {

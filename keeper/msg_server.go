@@ -63,6 +63,24 @@ func (ms msgServer) LikeTweet(ctx context.Context, msg *example.MsgLikeTweet) (*
 	return response, nil
 }
 
+func (ms msgServer) DeleteTweet(ctx context.Context, msg *example.MsgDeleteTweet) (*example.MsgDeleteTweetResponse, error) {
+
+	tweetID := msg.GetTweetId()
+
+	emptyTweet := example.Tweet{
+		Creator: "",
+		Text:    "",
+		Likes:   0,
+	}
+
+	err := ms.k.Tweets.Set(ctx, tweetID, emptyTweet)
+	if err != nil {
+		return nil, err
+	}
+
+	return new(example.MsgDeleteTweetResponse), nil
+}
+
 var _ example.MsgServer = msgServer{}
 
 // NewMsgServerImpl returns an implementation of the module MsgServer interface.
