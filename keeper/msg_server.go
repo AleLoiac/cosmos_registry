@@ -51,14 +51,29 @@ func (ms msgServer) LikeTweet(ctx context.Context, msg *example.MsgLikeTweet) (*
 		return nil, err
 	}
 
-	numberLikes := tweet.GetLikes()
+	numberLikes := tweet.GetLikes() + 1
 
-	err = ms.k.Tweets.Set(ctx, tweetID, example.Tweet{Likes: numberLikes + 1})
+	// check if user already liked the tweet and return an error if true
+	exist, err := ms.k.LikedBy.Has(ctx, tweetID)
+	if err != nil {
+		return nil, err
+	}
+	if exist {
+		return nil, errors.New("user already liked the tweet")
+	}
+
+	// set that the user liked the tweet
+	err = ms.k.LikedBy.Set(ctx, tweetID, msg.GetSender())
 	if err != nil {
 		return nil, err
 	}
 
-	response := &example.MsgLikeTweetResponse{LikesNumber: numberLikes + 1}
+	err = ms.k.Tweets.Set(ctx, tweetID, example.Tweet{Likes: numberLikes})
+	if err != nil {
+		return nil, err
+	}
+
+	response := &example.MsgLikeTweetResponse{LikesNumber: numberLikes}
 
 	return response, nil
 }

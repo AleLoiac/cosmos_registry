@@ -23,6 +23,7 @@ type Keeper struct {
 	Params   collections.Item[example.Params]
 	TweetsID collections.Sequence
 	Tweets   collections.Map[uint64, example.Tweet]
+	LikedBy  collections.Map[uint64, string]
 	Counter  collections.Map[string, uint64]
 }
 
@@ -40,6 +41,7 @@ func NewKeeper(cdc codec.BinaryCodec, addressCodec address.Codec, storeService s
 		Params:       collections.NewItem(sb, example.ParamsKey, "params", codec.CollValue[example.Params](cdc)),
 		TweetsID:     collections.NewSequence(sb, example.TweetsIDKey, "tweets_id"),
 		Tweets:       collections.NewMap(sb, example.TweetsKey, "tweets", collections.Uint64Key, codec.CollValue[example.Tweet](cdc)),
+		LikedBy:      collections.NewMap(sb, example.LikedByKey, "liked_by", collections.Uint64Key, collections.StringValue),
 		Counter:      collections.NewMap(sb, example.CounterKey, "counter", collections.StringKey, collections.Uint64Value),
 	}
 
